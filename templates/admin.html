@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+
+    <link rel="stylesheet" href="../static/CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/CSS/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+
+  </head>
+  <body>
+    <!--LOGO-->
+    <nav class="navbar navbar-dark bg-black">
+        <div class="container-fluid">
+            <img src="static\images\logo.png" alt="" width="200">
+        </div>
+    </nav>
+
+    <!--MENU LATERAL-->
+    <div class="d-flex align-items-start row">
+        <div class="nav flex-column nav-pills me-1 col-2" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="background-color: #adb5bd;">
+          <button class="op nav-link active mt-2" id="v-pills-crearVuelo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-crearVuelo" type="button" role="tab" aria-controls="v-pills-crearVuelo" aria-selected="true">
+            <span class="bi bi-send"></span>
+            <span class="op-text">Crear Vuelo</span>
+          </button>
+          <button class="op nav-link mt-2" id="v-pills-editarVuelo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-editarVuelo" type="button" role="tab" aria-controls="v-pills-editarVuelo" aria-selected="false">
+            <span class="bi bi-send-exclamation"></span>
+              <span class="op-text">Editar Vuelo</span>
+            
+          </button>
+          <button class="op nav-link mt-2" id="v-pills-cancelarVuelo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cancelarVuelo" type="button" role="tab" aria-controls="v-pills-cancelarVuelo" aria-selected="false">
+            <span class="bi bi-send-x-fill"></span>
+            <span class="op-text">Cancelar Vuelo</span>
+          </button>
+          <button class="op nav-link mt-2" id="v-pills-crearPromo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-crearPromo" type="button" role="tab" aria-controls="v-pills-crearPromo" aria-selected="false">
+            <span class="bi bi-ticket"></span>
+            <span class="op-text">Crear Promoción</span>
+          </button>
+          <button class="op nav-link mt-2" id="v-pills-editarPromo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-editarPromo" type="button" role="tab" aria-controls="v-pills-editarPromo" aria-selected="false">
+            <span class="bi bi-ticket-detailed"></span>
+            <span class="op-text">Editar Promoción</span>
+          </button>
+          <button class="op nav-link mt-2 mb-5" id="v-pills-cancelarPromo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cancelarPromo" type="button" role="tab" aria-controls="v-pills-cancelarPromo" aria-selected="false">
+            <span class="bi bi-ticket-perferated-fill"></span>
+            <span class="op-text">Cancelar Promoción</span>
+          </button>
+          <a class="op nav-link mt-5 btn btn-danger" type ="button" href="\logout" >
+            <span class="bi bi-x-circle-fill" ></span>
+            <span class="op-text">Cerrar Sesión</span>
+          </a>
+        </div>
+        <div class="tab-content col-8" id="v-pills-tabContent">
+            <!--CREAR VUELO-->
+            <div class="tab-pane fade show active container-fluid" id="v-pills-crearVuelo" role="tabpanel" aria-labelledby="v-pills-crearVuelo-tab">
+                <h1 class="text-center">Crear Vuelo</h1>
+                <form method="post" action="/admin">
+                  <div class="row">
+                    
+                    <div class="mb-1 col-md ms-3">
+                      <label for="inputFechaVuelo" class="form-label">Fecha Vuelo:</label>
+                      <input type="date" class="form-control" id="inputFechaVuelo" name="fechaVuelo">
+                    </div>
+                    <div class="mb-1 col-md ms-3">
+                      <label for="inputHoraSalida" class="form-label">Hora Salida:</label>
+                      <input type="time" class="form-control" id="inputHoraSalida" name="horaSalidaVuelo">
+                    </div>
+                    <div class="mb-1 col-md ms-3">
+                      <label for="inputDuracionVuelo" class="form-label">Duración del Vuelo:</label>
+                      <input type="number" class="form-control" id="inputDuracionVuelo" name="duracionVuelo">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="mb-1 col-auto ms-3">
+                        <label for="inputOrigenVuelo" class="form-label">Ciudad Origen:</label>
+                        <input class="form-control" list="datalistOptionsOrigen" id="inputOrigenVuelo" placeholder="Buscar..." name="ciudadOrigenVuelo">
+                        <datalist id="datalistOptionsOrigen">
+                            <option value="Bogotá">
+                            <option value="Medellin">
+                            <option value="Cali">
+                            <option value="Barranquilla">
+                            <option value="Pereira">
+                        </datalist>
+                      </div>
+                      <div class="mb-1 col-auto ms-3">
+                        <label for="inputDestinoVuelo" class="form-label">Ciudad Destino:</label>
+                        <input class="form-control" list="datalistOptionsDestino" id="inputDestinoVuelo" placeholder="Buscar..." name="ciudadDestinoVuelo">
+                        <datalist id="datalistOptionsDestino">
+                            <option value="Bogotá">
+                            <option value="Medellin">
+                            <option value="Cali">
+                            <option value="Barranquilla">
+                            <option value="Madrid">
+                        </datalist>
+                      </div>
+                      
+                    <div class="mb-1 col-auto ms-3">
+                        <label for="validationTipoVuelo" class="form-label">Tipo de Vuelo:</label>
+                        <select class="form-select" aria-label="Default select" id="validationTipoVuelo" required="required" name="tipoVuelo">
+                          <option selected disabled value="">Buscar...</option>
+                          <option value="nacional">Nacional</option>
+                          <option value="internacional">Internacional</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="mb-1 col-auto ms-3">
+                        <label for="inputCostoE" class="form-label">Tarifa Tiquete Económico :</label>
+                        <input type="number" class="form-control" id="inputCostoE" name="costoTicketVuelo">
+                    </div>
+                    <div class="mb-1 col-auto ms-3">
+                        <label for="inputCostoVIP" class="form-label">Tarifa Tiquete VIP:</label>
+                        <input type="number" class="form-control" id="inputCostoVIP" name="costoTicketVIPVuelo">
+                      </div>
+                    <button type="submit" class="btn btn-primary w-50 mx-auto mt-2">Publicar Vuelo</button>
+                  </div>
+                </form>
+            </div>
+            <!--EDITAR VUELO-->
+            <div class="tab-pane fade" id="v-pills-editarVuelo" role="tabpanel" aria-labelledby="v-pills-editarVuelo-tab">
+                <h1 class="text-center">Editar Vuelo</h1>
+                <form class="row g-3" method="post" action="/admin">
+                    
+                    <div class="mb-1 col-auto ms-5">
+                      <label for="inputBuscarVuelo" class="form-label">Buscar Vuelo:</label>
+                      <input type="text" id="buscarVuelo" class="form-control" id="inputBuscarVuelo" name="buscarVuelo">
+                      <button type="button" class="btn btn-primary mt-1" onclick="buscarVuelos()">Buscar</button>
+                    </div>
+                    <div class="mb-1 container-fluid">
+                        <table id="Vuelos" class="table w-75 mx-auto">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ciudad Origen</th>
+                                <th scope="col">Ciudad Destino</th>
+                                <th scope="col">Fecha Salida</th>
+                                <th scope="col">Hora Salida</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="mb-1 col-auto ms-5">
+                        <label for="inputFechaVuelo" class="form-label">Fehca Vuelo:</label>
+                        <input type="date" class="form-control" id="inputFechaVuelo">
+                      </div>
+                      <div class="mb-1 col-auto">
+                        <label for="inputHoraSalida" class="form-label">Hora Salida:</label>
+                        <input type="datetime" class="form-control" id="inputHoraSalida">
+                      </div>
+                    <button type="submit" class="btn btn-primary mx-auto w-25 my-5">Confirmar y Publicar Vuelo</button>
+                </form>
+            </div>
+            <!--CANCELAR VUELO-->
+            <div class="tab-pane fade" id="v-pills-cancelarVuelo" role="tabpanel" aria-labelledby="v-pills-cancelarVuelo-tab">
+                <h1 class="text-center">Cancelar Vuelo</h1>
+                <form class="row g-3" method="post" action="/admin">
+                    
+                    <div class="mb-1 col-auto ms-5">
+                      <label for="inputBuscarVuelo" class="form-label">Buscar Vuelo:</label>
+                      <input type="text" class="form-control" id="inputBuscarVuelo" name="buscarVuelo">
+                      <button type="submit" class="btn btn-primary mt-1">Buscar</button>
+                    </div>
+                    <div class="mb-1 container">
+                        <table class="table mx-auto w-75" >
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ciudad Origen</th>
+                                <th scope="col">Ciudad Destino</th>
+                                <th scope="col">Fecha Salida</th>
+                                <th scope="col">Hora Salida</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                          </table>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-25 mx-auto" id="cancelarVuelo" aria-describedby="cancelHelper">Cancelar Vuelo</button>
+                    <div id="cancelHelper" class="form-text mx-auto">Una vez cancelado el vuelo, no hay marcha atrás.</div>
+                </form>
+            </div>
+            <!--CREAR PROMOCIÓN-->
+            <div class="tab-pane fade" id="v-pills-crearPromo" role="tabpanel" aria-labelledby="v-pills-crearPromo-tab">
+                <h1 class="text-center">Crear Promoción</h1>
+                <form method="post" action="/admin">
+                  <div class="row">
+                    
+                    <div class="mb-1 w-25 ms-5">
+                      <label for="inputBuscarVuelo" class="form-label">Buscar Vuelo:</label>
+                      <input type="text" class="form-control" id="inputBuscarVuelo" name="buscarVuelo">
+                      <button type="submit" class="btn btn-primary mt-1">Buscar</button>
+                    </div>
+                    <div class="mb-1">
+                        <table class="table w-75 mx-auto">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ciudad Origen</th>
+                                <th scope="col">Ciudad Destino</th>
+                                <th scope="col">Fecha Salida</th>
+                                <th scope="col">Hora Salida</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="mb-1 col-auto ms-5">
+                        <label for="inputDuracionPromo" class="form-label">Duración Promoción:</label>
+                        <input type="number" class="form-control" id="inputDuracionPromo" name="duracionPromo">
+                      </div>
+                      <div class="mb-1 col-auto">
+                        <label for="inputDescuentoPromo" class="form-label">Descuento Promoción:</label>
+                        <input type="number" class="form-control" id="inputDescuentoPromo" name="descuentoPromo">
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="mb-1 w-50 ms-5">
+                        <label for="inputDescripPromo" class="form-label">Descripción Promoción:</label>
+                        <textarea type="text" class="form-control" id="inputDescripPromo" name="descripcionPromo"></textarea>
+                      </div>
+                    <button type="submit" class="btn btn-primary w-25 mx-auto">Publicar</button>
+                  </div>
+                </form>
+            </div>
+            <!--EDITAR PROMOCIÓN-->
+            <div class="tab-pane fade" id="v-pills-editarPromo" role="tabpanel" aria-labelledby="v-pills-editarPromo-tab">
+                <h1 class="text-center">Editar Promoción</h1>
+                <form method="post" action="/admin">
+                  <div class="row">
+                    
+                    <div class="mb-1 w-25 ms-5">
+                      <label for="inputBuscarPromo" class="form-label">Buscar Promoción:</label>
+                      <input type="text" class="form-control" id="inputBuscarPromo" name="buscarPromo">
+                      <button type="submit" class="btn btn-primary mt-1">Buscar</button>
+                    </div>
+                    <div class="mb-1">
+                        <table class="table w-75 mx-auto">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ciudad Origen</th>
+                                <th scope="col">Ciudad Destino</th>
+                                <th scope="col">Fecha Salida</th>
+                                <th scope="col">Hora Salida</th>
+                                <th scope="col">Tiempo Promoción</th>
+                                <th scope="col">Descuento</th>
+                                <th scope="col">Descripción</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="mb-1 col-auto ms-5">
+                        <label for="inputDuracionPromo" class="form-label">Duración Promoción:</label>
+                        <input type="number" class="form-control" id="inputDuracionPromo" name="duracionPromo">
+                      </div>
+                      <div class="mb-1 col-auto">
+                        <label for="inputDescuentoPromo" class="form-label">Descuento Promoción:</label>
+                        <input type="number" class="form-control" id="inputDescuentoPromo" name="descuentoPromo">
+                      </div>
+                  </div>
+                  <div class="row g-3">
+                      <div class="mb-1 w-50 ms-5">
+                        <label for="inputDescripPromo" class="form-label">Descripción Promoción:</label>
+                        <input type="text" class="form-control" id="inputDescripPromo" name="descripcionPromo">
+                      </div>
+                    <button type="submit" class="btn btn-primary w-25 mx-auto"> Confirmar y Publicar</button>
+                  </div>
+                </form>
+            </div>
+            <!--CANCELAR PROMOCIÓN-->
+            <div class="tab-pane fade" id="v-pills-cancelarPromo" role="tabpanel" aria-labelledby="v-pills-cancelarPromo-tab">
+                <h1 class="text-center">Cancelar Vuelo</h1>
+                <form class="row g-3" method="post" action="/admin">
+                    
+                    <div class="mb-1 w-25 ms-5">
+                      <label for="inputBuscarPromo" class="form-label">Buscar Promoción:</label>
+                      <input type="text" class="form-control" id="inputBuscarPromo" name="buscarPromo">
+                      <button type="submit" class="btn btn-primary mt-1">Buscar</button>
+                    </div>
+                    <div class="mb-1">
+                        <table class="table w-75 mx-auto">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ciudad Origen</th>
+                                <th scope="col">Ciudad Destino</th>
+                                <th scope="col">Fecha Salida</th>
+                                <th scope="col">Hora Salida</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                          </table>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-25 mx-auto" id="cancelarPromo" aria-describedby="cancelHelperPromo">Cancelar Vuelo</button>
+                    <div id="cancelHelperPromo" class="form-text mx-auto">Una vez cancelada la pormoción, no hay marcha atrás.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--FOOTER-->
+    <div style="background-color: black;"></div>
+    <script src="static\Js\popper.min.js"></script>
+    <script src="static\Js\bootstrap.min.js"></script>
+    <!--<script src="../static/Js/admin.js"></script>-->
+  </body>
+</html>

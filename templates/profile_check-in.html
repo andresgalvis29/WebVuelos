@@ -1,0 +1,28 @@
+{% extends "userLayout.html" %}
+{% block body %}
+        <!--Hacer Check-in-->>
+        <div class="col-auto container-fluid">
+            <h1 class="text-center">Check-in</h1>
+            <div class="mt-5 container">
+                <table class="table mx-auto w-100 " >
+                    <thead>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckPasajero">
+                                <label class="form-check-label" for="flexCheckPasajero">
+                                  Nombre pasajero
+                                </label></th>
+                            <th scope="col">Por confirmar</th>
+                        </tr>
+                                  
+                    </tbody>
+                </table>
+                <button class="btn mt-5" style="background-color: grey;" type="submit">Check-in Indivdual</button>
+                <button class="btn btn-primary mt-5" type="submit">Check-in Grupo</button>
+            </div>
+        </div>
+{% endblock %}
+   

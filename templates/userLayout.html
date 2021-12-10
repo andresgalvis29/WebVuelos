@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil usuario</title>
+
+    <link rel="stylesheet" href="static\css\bootstrap.min.css">
+</head>
+<body>
+     <!--NAVBAR-->
+     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" >
+                <img src="static\images\logo.png" alt="" width="200">
+            </a>
+
+            <button class="navbar-toggler"
+            type="button" 
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toogle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto"> <!--Se dejaron las opciones en el centro-->
+                    
+                    <li class="nav-item mx-3"><a class="nav-link " href="/session">Menu Principal</a></li> 
+                    <li class="nav-item mx-3"><a class="nav-link active" href="/userflight">Mis viajes</a></li> <!--se dieron margenes mas grandes-->
+                    <li class="nav-item mx-3"><a class="nav-link " href="/usercheckin">Check-in</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link " href="/addamount">Agregar Monto</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link " href="/addcard">Agregar Tarjeta</a></li>
+                    <li class="nav-item mx-3"><a class="nav-link " href="/useredit">Editar</a></li>
+                    <li class="nav-item d-sm-none"><a class="btn btn-danger" href="/logout">Cerrar Sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row container-fluid">
+        <!--USER INFO-->
+        <div class="card bg-primary col-1 d-none d-md-block" style="width: 15rem;height: 600px; "> <!--se hizo un reajuste al tamaño de la barra y desaparecer el perfil en movil-->
+            <img src="static\images\Blank-profile.png" class="card-img-top rounded-circle" alt="100">
+            <div class="card-body">
+            <p class="card-header bg-light p-2" id="userName">Nombre usuario</p>
+            <p class="card-header bg-light p-2" id="userBirthday">Fecha nacimiento</p>
+            <p class="card-header bg-light p-2" id="userCity">Ciudad</p>
+            <p class="card-header bg-light p-2" id="userMoney">Mi monto</p>
+            <a href="/logout" class="btn btn-danger p-2">Cerrar sesión</a>
+            </div>
+        </div>
+
+        {% block body %}
+        {% endblock %}
+
+    </div>
+
+    <!--SOPORTE-->
+    <div class="position-relative">
+        <div class="position-absolute bottom-0 end-0 ">
+            <a type="button" href ='https://api.whatsapp.com/send?phone=573136771747&text' class="btn btn-primary btn-lg">Soporte</a>
+        </div>
+    </div>
+    
+    <!--FOOTER-->
+    <script src="static\Js\popper.min.js"></script>
+    <script src="static\Js\bootstrap.min.js"></script>
+
+</body>
+</html>

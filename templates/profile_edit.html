@@ -1,0 +1,42 @@
+{% extends "userLayout.html" %}
+{% block body %}       
+        <!--EDITAR USUARIO-->
+        <div class="col container ms-2">
+            <h5>Datos cuenta de usuario</h5>
+            <div class="mb-3 row">
+                <label for="inputEmail" class="col-sm-2 col-form-label">Correo electrónico:</label>
+                <div class="col-5">
+                  <input type="email" class="form-control" id="inputEmail">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputDirFactu" class="col-sm-2 col-form-label">Dirección de facturación:</label>
+                <div class="col-5">
+                  <input type="text" class="form-control" id="inputDirFactu">
+                </div>
+            </div>
+            <h5>Cambiar contraseña</h5>
+            <div class="mb-3 row">
+                <label for="inputCurrentPassword" class="col-sm-2 col-form-label">Contraseña actual:</label>
+                <div class="col-5">
+                  <input type="password" class="form-control" id="inputCurrentPassword">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputNewPassword" class="col-sm-2 col-form-label">Nueva contraseña:</label>
+                <div class="col-5">
+                  <input type="password" class="form-control" id="inputNewPassword">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputConfirmationNewPassword" class="col-sm-2 col-form-label">Comfirmar contraseña:</label>
+                <div class="col-5">
+                  <input type="password" class="form-control" id="inputConfirmationNewPassword">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary rounded-pill mt-3">Editar</button>
+        </div>
+
+    </div>
+
+{% endblock %}

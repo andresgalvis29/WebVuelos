@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!-- CSS Bootstrap -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+     <!-- JS bootstrap-->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     
+     <!--custom CSS
+     <link href="../styles/index.css" rel="stylesheet">-->
+     <link href="{{url_for('static',filename = 'CSS/register.css')}}" rel="stylesheet">
+
+    <title>Registrado</title>
+</head>
+<body>
+    <!--container del nav bar de arriba -->
+    <div class="nav-bar">
+        <a class="nav-title" href="/">VentaTiquetes.com</a>
+        <a class="nav-login"href="/login"><img src="{{url_for('static',filename = 'images/usuario.png')}}" class="nav-login-icon">Iniciar Sesi&oacute;n</a>
+    </div>
+    <div>
+        <h1 class="text-center">Gracias por registrarte!</h1>
+        <div class="text-decorator">Seras redirigido a la pagina principal donde podras ingresar 
+            con tu usuario y contrase&ntilde;a  o si prefieres puedes ingresar dando click en el boton
+             <b>iniciar sesion</b> en la parte superior derecha.
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{url_for('static',filename = 'Js/registered.js')}}?v=20211124_{{ random }}"></script>
+</html>

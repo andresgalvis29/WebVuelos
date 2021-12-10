@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JS bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <!--custom CSS
+    <link href="../styles/index.css" rel="stylesheet">-->
+    <link href="{{url_for('static',filename = 'CSS/login.css')}}" rel="stylesheet">
+
+
+    <title>login</title>
+</head>
+<body>
+    <span class="background-image">&nbsp;</span>
+    <!--container del nav bar de arriba -->
+    <div class="nav-bar">
+        <a class="nav-title" href="/">VentaTiquetes.com</a>
+        <a class="nav-register"href="/register">
+            <img src="{{url_for('static',filename = 'images/register.png')}}" class="nav-login-icon">Registrarse</a>
+    </div>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{messages}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container-login-form">
+        <div class="titleForm">Iniciar Sesi&oacute;n</div>
+        <form class="formDecorator" action='/logined' method="POST">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Usuario</label>
+                <input type="email" name = "email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingresa tu Usuario">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Contrase&ntilde;a</label>
+                <input type="password" name = "password" class="form-control" id="exampleInputPassword1" placeholder="Ingresa tu contrase&ntilde;a">
+                <!--<small id="passwordForgot" class="form-text text-muted"><a class="passwordHelper" href="/">Se te olvido tu contrase&ntilde;a?</a></small>-->
+            </div>
+            <button type="submit" class="btn btn-primary btn-Login">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
