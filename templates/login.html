@@ -12,7 +12,7 @@
     
     <!--custom CSS
     <link href="../styles/index.css" rel="stylesheet">-->
-    <link href="{{url_for('static',filename = 'CSS/login.css')}}" rel="stylesheet">
+    <link href="static\css\login.css" rel="stylesheet">
 
 
     <title>login</title>
@@ -23,7 +23,7 @@
     <div class="nav-bar">
         <a class="nav-title" href="/">VentaTiquetes.com</a>
         <a class="nav-register"href="/register">
-            <img src="{{url_for('static',filename = 'images/register.png')}}" class="nav-login-icon">Registrarse</a>
+            <img src="static\images\register.png" class="nav-login-icon">Registrarse</a>
     </div>
     
     {% with messages = get_flashed_messages() %}
