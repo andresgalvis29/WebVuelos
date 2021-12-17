@@ -1,15 +1,15 @@
-import json
-import random
-import os
-from operator import is_not
-from re import search
+#import json
+#import random
+#import os
+#from operator import is_not
+#from re import search
 from flask import Flask
 from flask.templating import render_template
 from flask_mysqldb import MySQL
 from flask import request
-from flask import redirect,url_for,session,flash,escape,jsonify
-from datetime import datetime, date, timedelta
-from pytz import timezone
+from flask import redirect,url_for,session,flash#,escape,jsonify
+#from datetime import datetime, date, timedelta
+#from pytz import timezone
 
 #Global variables#################################
 vuelos = None                                   #
