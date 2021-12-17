@@ -1,0 +1,12 @@
+td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+
+.selected {
+    background-color: rgb(54, 189, 194);
+    color: #FFF;
+}
+
+@media screen and (max-width: 750px){
+    button.op .op-text{
+        display: none;
+    }
+}

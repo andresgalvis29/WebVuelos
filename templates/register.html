@@ -12,7 +12,7 @@
     
     <!--custom CSS
     <link href="../styles/index.css" rel="stylesheet">-->
-    <link href="{{url_for('static',filename = 'CSS/register.css')}}" rel="stylesheet">
+    <link href="static\css\register.css" rel="stylesheet">
 
 
     <title>Registrarse</title>
@@ -21,7 +21,7 @@
     <!--container del nav bar de arriba -->
     <div class="nav-bar">
         <a class="nav-title" href="/">VentaTiquetes.com</a>
-        <a class="nav-login"href="/login"><img src="{{url_for('static',filename = 'images/usuario.png')}}" class="nav-login-icon">Iniciar Sesi&oacute;n</a>
+        <a class="nav-login"href="/login"><img src="static\images\usuario.png" class="nav-login-icon">Iniciar Sesi&oacute;n</a>
     </div>
     <!---Mensaje por si el usuario regitra una identificacion o email ya registrado-->
     {% with messages = get_flashed_messages() %}
@@ -113,7 +113,7 @@
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{url_for('static',filename = 'Js/register.js')}}?v=20211124_{{ random }}"></script>
+<script src="static\Js\register.js"></script>
 <script>
   function disableBack() { window.history.forward(); }
         setTimeout("disableBack()", 0);
