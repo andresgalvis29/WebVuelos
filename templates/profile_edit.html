@@ -2,39 +2,59 @@
 {% block body %}       
         <!--EDITAR USUARIO-->
         <div class="col container ms-2">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{messages}}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          {% endif %}
+          {% endwith %}
+
             <h5>Datos cuenta de usuario</h5>
             <div class="mb-3 row">
                 <label for="inputEmail" class="col-sm-2 col-form-label">Correo electrónico:</label>
                 <div class="col-5">
-                  <input type="email" class="form-control" id="inputEmail">
+                  <form action="/emailedit" method="POST" id="formReg">
+                    <input type="email" name="nemail" class="form-control" id="inputEmail">
+                    <button type="submit" class="btn btn-primary rounded-pill mt-3" >Editar</button>
+                  </form>
                 </div>
             </div>
+
             <div class="mb-3 row">
                 <label for="inputDirFactu" class="col-sm-2 col-form-label">Dirección de facturación:</label>
                 <div class="col-5">
-                  <input type="text" class="form-control" id="inputDirFactu">
+                  <form action="/directionedit" method="POST" id="formReg">
+                    <input type="text" name="ndirection" class="form-control" id="inputDirFactu">
+                    <button type="submit" class="btn btn-primary rounded-pill mt-3">Editar</button>
+                  </form>
                 </div>
             </div>
+
             <h5>Cambiar contraseña</h5>
-            <div class="mb-3 row">
+            <form action="/passwordedit" method="POST" id="formReg" >
+              <div class="mb-3 row">
                 <label for="inputCurrentPassword" class="col-sm-2 col-form-label">Contraseña actual:</label>
                 <div class="col-5">
-                  <input type="password" class="form-control" id="inputCurrentPassword">
+                  <input type="password" class="form-control" name="oldpassword" id="inputCurrentPassword">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputNewPassword" class="col-sm-2 col-form-label">Nueva contraseña:</label>
                 <div class="col-5">
-                  <input type="password" class="form-control" id="inputNewPassword">
+                  <input type="password" class="form-control" name="newpassword" id="inputNewPassword">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputConfirmationNewPassword" class="col-sm-2 col-form-label">Comfirmar contraseña:</label>
                 <div class="col-5">
-                  <input type="password" class="form-control" id="inputConfirmationNewPassword">
+                  <input type="password" class="form-control" name="newpassword2" id="inputConfirmationNewPassword">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary rounded-pill mt-3">Editar</button>
+            </form>
+            
         </div>
 
     </div>

@@ -47,10 +47,10 @@
         <div class="card bg-primary col-1 d-none d-md-block" style="width: 15rem;height: 600px; "> <!--se hizo un reajuste al tamaño de la barra y desaparecer el perfil en movil-->
             <img src="static\images\Blank-profile.png" class="card-img-top rounded-circle" alt="100">
             <div class="card-body">
-            <p class="card-header bg-light p-2" id="userName">Nombre usuario</p>
-            <p class="card-header bg-light p-2" id="userBirthday">Fecha nacimiento</p>
-            <p class="card-header bg-light p-2" id="userCity">Ciudad</p>
-            <p class="card-header bg-light p-2" id="userMoney">Mi monto</p>
+            <p class="card-header bg-light p-2" id="userName">{{ informacion.1 }}</p>
+            <p class="card-header bg-light p-2" id="userBirthday">{{ informacion.4}}</p>
+            <p class="card-header bg-light p-2" id="userCity">{{informacion.5}}</p>
+            <p class="card-header bg-light p-2" id="userMoney">{{ informacion.11}} $</p>
             <a href="/logout" class="btn btn-danger p-2">Cerrar sesión</a>
             </div>
         </div>

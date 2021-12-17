@@ -1,16 +1,35 @@
+import json
+import random
+import os
+from operator import is_not
+from re import search
 from flask import Flask
 from flask.templating import render_template
 from flask_mysqldb import MySQL
 from flask import request
-from flask import redirect,url_for,session,flash
+from flask import redirect,url_for,session,flash,escape,jsonify
+from datetime import datetime, date, timedelta
+from pytz import timezone
+
+#Global variables#################################
+vuelos = None                                   #
+timezones = {"LONDRES" : "Europe/London",       #
+        "MADRID" : "Europe/Madrid",             #
+        "NEW YORK" : "America/New_York",        #
+        "BUENOS AIRES" : "America/Buenos_Aires"}#
+dfmt = '%Y-%m-%d %H:%M'
+#################################################
  
 
 #Configuramos nuestra aplicacion para que pueda ser conectada a la base de datos
 app = Flask (__name__)
-app.config['MYSQL_HOST'] = 'us-cdbr-east-05.cleardb.net'
-app.config['MYSQL_USER'] = 'bdbb92f1a17fd3'
-app.config['MYSQL_PASSWORD'] = '3044d49f'
-app.config['MYSQL_DB'] = 'heroku_371e86085175bc4'
+#app.config['MYSQL_HOST'] = 'us-cdbr-east-05.cleardb.net'
+#app.config['MYSQL_USER'] = 'bdbb92f1a17fd3'
+#app.config['MYSQL_PASSWORD'] = '3044d49f'
+#app.config['MYSQL_DB'] = 'heroku_371e86085175bc4'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_DB'] = 'venta_tiquetes'
 mysql = MySQL(app)
 
 
@@ -57,7 +76,8 @@ def registered():
                 cur = mysql.connection.cursor()
                 cur.execute("SELECT Email,IDusuario FROM `usuario` WHERE Email = '%s' OR IDusuario = '%s'" % (Email,IDusuario))
                 data = cur.fetchall()
-                if data == None:
+                print(data)
+                if data == ():
                         cur.execute("""INSERT INTO usuario (IDusuario,Nombres,Apellidos,IDtipoUsuario,FechaNacimiento,LugarNacimiento,Email,IDSexo,DireccionFacturacion,Telefono,Contraseña)
                                 VALUES (%s,%s,%s,1,%s,%s,%s,%s,%s,%s,%s)""",(IDusuario,Nombres,Apellidos,FechaNacimiento,LugarNacimiento,Email,IDSexo,DireccionFacturacion,Telefono,Contraseña))
                         mysql.connection.commit()
@@ -82,12 +102,12 @@ def logined():
                 Email = request.form['email']
                 Contraseña = request.form['password']
                 cur = mysql.connection.cursor()
-                cur.execute("SELECT Email,Contraseña,IDTipoUsuario,IDSexo FROM `usuario` WHERE Email = '%s'" % (Email))
-                data = cur.fetchone()
-                print(data)
-                if  data != None and Contraseña == data[1]:
-                        if data[2] == 1:
-                                session['user'] = Email
+                cur.execute("SELECT * FROM `usuario` WHERE Email = '%s'" % (Email))
+                logindata = cur.fetchone()
+                print(logindata)
+                if  logindata != None and Contraseña == logindata[10]:
+                        if logindata[3] == 1:
+                                session['user'] = logindata[0]
                                 return redirect(url_for('indexSession'))
                         else:
                                 session['admin'] = Email
@@ -113,12 +133,16 @@ def admin():
         else:
                 return render_template('index.html')
 
-
+############################################################## PAGINAS USUARIO ######################################
 #Menu Usario - Mis viajes
 @app.route('/userflight')
 def userflight():
         if 'user' in session:
-                return render_template('profile_flightHistory.html')
+                print(session['user'])
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT * FROM `usuario` WHERE IDusuario = '%s'" % (session['user']))
+                logindata = cur.fetchone()
+                return render_template('profile_flightHistory.html',informacion = logindata)
         else:
                 return render_template('index.html')
 
@@ -126,7 +150,11 @@ def userflight():
 @app.route('/usercheckin')
 def usercheckin():
         if 'user' in session:
-                return render_template('profile_check-in.html')
+                print(session['user'])
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT * FROM `usuario` WHERE IDusuario = '%s'" % (session['user']))
+                logindata = cur.fetchone()
+                return render_template('profile_check-in.html',informacion = logindata)
         else:
                 return render_template('index.html')
 
@@ -134,7 +162,11 @@ def usercheckin():
 @app.route('/addamount')
 def addamount():
         if 'user' in session:
-                return render_template('profile_addAmount.html')
+                print(session['user'])
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT * FROM `usuario` WHERE IDusuario = '%s'" % (session['user']))
+                logindata = cur.fetchone()
+                return render_template('profile_addAmount.html',informacion = logindata)
         else:
                 return render_template('index.html')
 
@@ -142,7 +174,11 @@ def addamount():
 @app.route('/addcard')
 def addcard():
         if 'user' in session:
-                return render_template('profile_addCard.html')
+                print(session['user'])
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT * FROM `usuario` WHERE IDusuario = '%s'" % (session['user']))
+                logindata = cur.fetchone()
+                return render_template('profile_addCard.html',informacion = logindata)
         else:
                 return render_template('index.html')
 
@@ -150,9 +186,87 @@ def addcard():
 @app.route('/useredit')
 def useredit():
         if 'user' in session:
-                return render_template('profile_edit.html')
+                print(session['user'])
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT * FROM `usuario` WHERE IDusuario = '%s'" % (session['user']))
+                logindata = cur.fetchone()
+                return render_template('profile_edit.html',informacion = logindata)
         else:
-                return render_template('index.html')        
+                return render_template('index.html')
+######################################################################################################################
+
+############################################################### FUNCIONALIDADES USUARIO #############################
+
+#Editar Email
+@app.route('/emailedit', methods = ['POST'])
+def emailedit():
+        newEmail = request.form['nemail']
+        id = session['user']
+        cur = mysql.connection.cursor()
+        cur.execute("""UPDATE usuario 
+                        SET Email = %s
+                        WHERE IDusuario = %s""", (newEmail,id))
+        mysql.connection.commit()
+        return redirect(url_for('indexSession'))
+
+#Editar Correo
+@app.route('/directionedit', methods = ['POST'])
+def directionedit():
+        newDirection = request.form['ndirection']
+        id = session['user']
+        cur = mysql.connection.cursor()
+        cur.execute("""UPDATE usuario 
+                        SET DireccionFacturacion = %s
+                        WHERE IDusuario = %s""", (newDirection,id))
+        mysql.connection.commit()
+        return redirect(url_for('indexSession'))
+
+#Editar Contraseña
+@app.route('/passwordedit', methods = ['POST'])
+def passwordedit():
+        oldPass = request.form['oldpassword']
+        newPass = request.form['newpassword']
+        newPass2 = request.form['newpassword2']
+        id = session['user']
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT Contraseña FROM usuario WHERE IDusuario = '%s' " % (id))
+        passfound = cur.fetchone()
+        if passfound[0] == oldPass:
+                if newPass == newPass2:
+                        cur = mysql.connection.cursor()
+                        cur.execute("""UPDATE usuario 
+                                        SET Contraseña = %s
+                                        WHERE IDusuario = %s""", (newPass,id))
+                        mysql.connection.commit()
+                        return redirect(url_for('indexSession'))
+                else:
+                        flash('Las contraseñas no son las mismas')
+                        return redirect(url_for('useredit'))
+        else:
+                flash('Contraseña actual incorrecta')
+                return redirect(url_for('useredit'))
+
+#Agregar Tarjeta
+@app.route ('/newcreditcard',methods = ['POST'])
+def newcreditcard():
+        Numbercard = request.form['NumberT']
+        Month = request.form['Month']
+        Year = request.form['Year']
+        Ccv = request.form['Ccv']
+        NameOwner = request.form['CardName']
+        id = session['user']
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT IDTarjeta FROM `modulofinanciero` WHERE IDTarjeta = '%s' " % (Numbercard))
+        data = cur.fetchall()
+        if data == ():
+                cur.execute("""INSERT INTO modulofinanciero (IDTarjeta,MesVencimiento,AñoVencimiento,Ccv,NombreTitular,Dinero,IDusuario)
+                                VALUES (%s,%s,%s,%s,%s,0,%s)""", (Numbercard,Month,Year,Ccv,NameOwner,id))
+                mysql.connection.commit()
+                return redirect(url_for('indexSession'))
+        else:
+                flash('Tarjeta ya registrada')
+                return redirect(url_for('addcard'))
+
 
 if __name__ == '__main__':
         app.run(debug=True, port=5000)

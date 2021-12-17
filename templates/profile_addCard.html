@@ -11,23 +11,41 @@
         </div>
 
         <div class="col-auto container mt-2">
-            <h3>Información de pago</h3>
-            <label for="nTarjeta" class="form-label">Número de la tarjeta:</label>
-            <input type="number" class="form-control" id="nTarjeta" oninput="if(value.length>16)value=value.slice(0,16)">
-            <label for="fVencimiento" class="form-label">Fecha de vencimiento:</label>
-            <div class="row">
-                <div class="col-2">
-                    <input type="text" class="form-control" id="fVencimiento">
-                </div>
-                <div class="col-1">
-                    <label for="fVencimiento1" class="form-label">/</label>
-                </div>
-                <div class="col-2">
-                    <input type="text" class="form-control" id="fVencimiento1">
-                </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{messages}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+                {% endwith %}
+            <form action="/newcreditcard" method="POST" id="formReg">
+                    <h3>Información de pago</h3>
+
+                <label for="nTarjeta" class="form-label">Número de la tarjeta:</label>
+                <input type="number" class="form-control" id="nTarjeta" name="NumberT" oninput="if(value.length>16)value=value.slice(0,16)">
+
+                <label for="fVencimiento" class="form-label">Fecha de vencimiento:</label>
+                <div class="row">
+                    <div class="col-2">
+                        <input type="number" class="form-control" id="fVencimiento" name="Month" min = "1"  oninput="if(value.length>2)value=value.slice(0,2)">
+                    </div>
+                    <div class="col-1">
+                        <label for="fVencimiento1" class="form-label">/</label>
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control" id="fVencimiento1" name="Year" min="0" oninput="if(value.length>2)value=value.slice(0,2)">
+                    </div>
             </div>
+
+            <label for="CCV" class="form-label">CCV:</label>
+            <input type="text" class="form-control" id="CCV" name="Ccv" oninput="if(value.length>3)value=value.slice(0,3)">
+
             <label for="nombreTarjeta" class="form-label">Nombre de la tarjeta:</label>
-            <input type="text" class="form-control" id="nombreTarjeta">
+            <input type="text" class="form-control" id="nombreTarjeta" name="CardName">
+
             <button type="submit" class="btn btn-primary rounded-pill mt-3">Agregar</button>
+            </form>
+            
         </div>
 {% endblock %}
