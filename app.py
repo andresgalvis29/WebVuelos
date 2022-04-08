@@ -23,13 +23,13 @@ dfmt = '%Y-%m-%d %H:%M'
 
 #Configuramos nuestra aplicacion para que pueda ser conectada a la base de datos
 app = Flask (__name__)
-app.config['MYSQL_HOST'] = 'us-cdbr-east-05.cleardb.net'
-app.config['MYSQL_USER'] = 'bdbb92f1a17fd3'
-app.config['MYSQL_PASSWORD'] = '3044d49f'
-app.config['MYSQL_DB'] = 'heroku_371e86085175bc4'
-#app.config['MYSQL_HOST'] = 'localhost'
-#app.config['MYSQL_USER'] = 'root'
-#app.config['MYSQL_DB'] = 'venta_tiquetes'
+#app.config['MYSQL_HOST'] = 'us-cdbr-east-05.cleardb.net'
+#app.config['MYSQL_USER'] = 'bdbb92f1a17fd3'
+#app.config['MYSQL_PASSWORD'] = '3044d49f'
+#app.config['MYSQL_DB'] = 'heroku_371e86085175bc4'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_DB'] = 'venta_tiquetes'
 
 mysql = MySQL(app)
 
